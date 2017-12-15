@@ -28,34 +28,32 @@ public class ExerciseGame extends SimpleShootingGame {
 	
 	@Override
 	public void init(Universe universe) {
-		// •½sŒõŒ¹‚ğ”z’u‚·‚é
+		// å¹³è¡Œå…‰æºã‚’é…ç½®ã™ã‚‹
         DirectionalLight dirlight = new DirectionalLight(
-        		true,                           //Œõ‚ÌON/OFF
-                new Color3f(1.0f, 1.0f, 1.0f),  //Œõ‚ÌF
-                new Vector3f(0.0f, -1.0f, -0.5f) //Œõ‚Ì•ûŒüƒxƒNƒgƒ‹
+        		true,                           //å…‰ã®ON/OFF
+                new Color3f(1.0f, 1.0f, 1.0f),  //å…‰ã®è‰²
+                new Vector3f(0.0f, -1.0f, -0.5f) //å…‰ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
         );
         dirlight.setInfluencingBounds(new BoundingSphere(new Point3d(), 10000.0));
         universe.placeLight(dirlight);
         
-		// ŠÂ‹«Œõ‚ğ”z’u‚·‚é
+		// ç’°å¢ƒå…‰ã‚’é…ç½®ã™ã‚‹
 		AmbientLight amblight = new AmbientLight(new Color3f(0.5f, 0.5f, 0.5f));		
 		amblight.setInfluencingBounds(new BoundingSphere(new Point3d(), 10000.0));
 		universe.placeLight(amblight);
         
-		// ”wŒi‚ğì¬‚·‚é
+		// èƒŒæ™¯ã‚’ä½œæˆã™ã‚‹
 		buildSkyBox(universe);
 		
 		myShip = new Sprite("data\\images\\MyShip.gif");
 		universe.place(myShip);
 		
-		enemy= new Sprite("data\\images\\Enemy.gif");
-		enemy.setPosition(0.0,10.0);
+
 		universe.place(enemy);
 		
 		setViewRange(30, 30);
 		myShip.setPosition(0.0, 0.0);
-		
-		Ground2D stage = new Ground2D(null,"data\\images\\m101.jpg", 
+
 				windowSizeWidth, windowSizeHeight);
 		universe.place(stage);
 
@@ -64,7 +62,19 @@ public class ExerciseGame extends SimpleShootingGame {
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
 		if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
-			myShip.moveRight(5);
+			myShip.moveRight(10);
+		}
+		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
+			myShip.moveLeft(10);
+		}
+		if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
+			myShip.moveUp(10);
+		}
+		if (virtualController.isKeyDown(0, RWTVirtualController.DOWN)) {
+			myShip.moveDown(10);
+		}
+		if (enemy.checkCollision(myShip)) {
+			System.out.println("æ•µã¨å½“ãŸã£ãŸã‚ˆï¼");
 		}
 		if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
 			myShip.moveUp(5);
@@ -76,7 +86,7 @@ public class ExerciseGame extends SimpleShootingGame {
 			myShip.moveDown(5);
 		}
 		if(myShip.checkCollision(enemy)){
-			System.out.println("“G‚Æ“–‚½‚Á‚½‚æ!");
+			System.out.println("æ•µã¨å½“ãŸã£ãŸã‚ˆ!");
 		}
 	}
 
@@ -84,12 +94,12 @@ public class ExerciseGame extends SimpleShootingGame {
 	public RWTFrame3D createFrame3D() {
 		RWTFrame3D f = new RWTFrame3D();
 		f.setSize(800, 600);
-		f.setTitle("ƒTƒ“ƒvƒ‹ƒQ[ƒ€");
+		f.setTitle("ã‚µãƒ³ãƒ—ãƒ«ã‚²ãƒ¼ãƒ ");
 		return f;
 	}
 	
 	/**
-	 * ”wŒi‚ğì¬‚·‚é
+	 * èƒŒæ™¯ã‚’ä½œæˆã™ã‚‹
 	 * @param universe
 	 */
 	private void buildSkyBox(Universe universe) {
