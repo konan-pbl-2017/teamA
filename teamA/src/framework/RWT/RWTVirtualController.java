@@ -58,6 +58,7 @@ public class RWTVirtualController {
 	public static final int BUTTON_C = 6;
 	public static final int BUTTON_D = 7;
 	public static final int BUTTON_E = 8;
+	public static final int BUTTON_F = 9;
 	
 	public RWTVirtualController() {
 		// player1—p‚ÌkeyBind‚Ì‰Šú‰»
@@ -70,6 +71,7 @@ public class RWTVirtualController {
 		RWTVirtualController.keyBind(KeyEvent.VK_SPACE, 0, RWTVirtualController.BUTTON_C);	// space
 		RWTVirtualController.keyBind(KeyEvent.VK_E, 0, RWTVirtualController.BUTTON_D);	// e
 		RWTVirtualController.keyBind(KeyEvent.VK_F, 0, RWTVirtualController.BUTTON_E);	// f
+		RWTVirtualController.keyBind(KeyEvent.VK_L, 0, RWTVirtualController.BUTTON_F);	// l
 		
 		// player2—p‚ÌkeyBind‚Ì‰Šú‰»
 		//RWTVirtualController.keyBind(KeyEvent.VK_O, 1, RWTVirtualController.UP);	// o
