@@ -1,4 +1,4 @@
-package template.PRG2D;
+package game;
 
 import java.awt.Color;
 import java.math.BigDecimal;
@@ -33,11 +33,11 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	public void init(Universe universe) {
 		map = new MapStage();
 		universe.place(map);
+		setViewRange(40, 40);
 		camera.addTarget(map);
-		//camera.addTarget(map);
 
 		// プレイヤーの配置
-		player = new Player("data\\RPG\\player.png");
+		player = new Player("data\\images\\CharaFront.gif");
 		player.setPosition(14.0, 14.0);
 		player.setCollisionRadius(0.5);
 		universe.place(player);
@@ -111,24 +111,28 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		if(!disableControl){
 			// キー操作の処理
 			// 左
-			if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
+			if (virtualController.isKeyDown(1, RWTVirtualController.LEFT)) {
 				player.setVelocity(-6.0, 0.0);
+				player.setImage("data\\images\\CharaLeft.gif");
 				disableControl = true;
 			}
 			// 右
-			else if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
+			else if (virtualController.isKeyDown(1, RWTVirtualController.RIGHT)) {
 				player.setVelocity(6.0, 0.0);
+				player.setImage("data\\images\\CharaRight.gif");
 				disableControl = true;
 	
 			}
 			// 上
-			else if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
+			else if (virtualController.isKeyDown(1, RWTVirtualController.UP)) {
 				player.setVelocity(0.0, 6.0);
+				player.setImage("data\\images\\CharaBack.gif");
 				disableControl = true;
 			}
 			// 下
-			else if (virtualController.isKeyDown(0, RWTVirtualController.DOWN)) {
+			else if (virtualController.isKeyDown(1, RWTVirtualController.DOWN)) {
 				player.setVelocity(0.0, -6.0);
+				player.setImage("data\\images\\CharaFront.gif");
 				disableControl = true;
 			}
 		}

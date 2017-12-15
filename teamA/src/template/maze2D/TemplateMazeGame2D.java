@@ -20,7 +20,7 @@ public class TemplateMazeGame2D extends SimpleMazeGame {
 	public void init(Universe universe) {
 		mazeGround = new MazeStage("data\\images\\block.gif", "data\\images\\Tile.gif");
 		universe.place(mazeGround);
-		camera.addTarget(mazeGround);
+		camera.addTarget(mazeGround);//ƒJƒƒ‰‚ÌˆÊ’u
 
 		mazeSpritePlayer = new MazeSpritePlayer("data\\RPG\\player.png");
 		mazeSpritePlayer.setPosition(6.0, 2.0);

@@ -43,7 +43,7 @@ public abstract class SimpleMapGame extends SimpleMazeGame {
 
 	public void update(RWTVirtualController virtualController, long interval) {
 		progress(virtualController, interval);
-		setMapCenter(center.getPosition().getX(), center.getPosition().getY());
+//		setMapCenter(center.getPosition().getX(), center.getPosition().getY());
 		camera.adjust(interval);
 	}
 	
@@ -72,6 +72,7 @@ public abstract class SimpleMapGame extends SimpleMazeGame {
 	public void setMapCenter(double x, double y) {
 		mapCenterX = x;
 		mapCenterY = y;
+
 		updateViewArea();		
 	}
 	
