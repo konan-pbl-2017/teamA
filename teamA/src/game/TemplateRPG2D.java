@@ -25,7 +25,9 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	private Player player;
 	private Sprite king;
 	private Sprite enemy;
-		
+	int up=0, down=1,left=2,right=3;
+	int muki=0;
+	
 	// 速度によって物体が動いている時にボタンを押せるかどうかを判定するフラグ
 	private boolean disableControl = false;
 
@@ -114,12 +116,14 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			if (virtualController.isKeyDown(1, RWTVirtualController.LEFT)) {
 				player.setVelocity(-6.0, 0.0);
 				player.setImage("data\\images\\CharaLeft.gif");
+				muki=left;
 				disableControl = true;
 			}
 			// 右
 			else if (virtualController.isKeyDown(1, RWTVirtualController.RIGHT)) {
 				player.setVelocity(6.0, 0.0);
 				player.setImage("data\\images\\CharaRight.gif");
+				muki=right;
 				disableControl = true;
 	
 			}
@@ -127,20 +131,23 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			else if (virtualController.isKeyDown(1, RWTVirtualController.UP)) {
 				player.setVelocity(0.0, 6.0);
 				player.setImage("data\\images\\CharaBack.gif");
+				muki=up;
 				disableControl = true;
 			}
 			// 下
 			else if (virtualController.isKeyDown(1, RWTVirtualController.DOWN)) {
 				player.setVelocity(0.0, -6.0);
 				player.setImage("data\\images\\CharaFront.gif");
+				muki=down;
 				disableControl = true;
 			}
 		}
 		player.motion(interval, map);
 		
 		// 衝突判定
-		if (player.checkCollision(king)) {
-			// プレイヤーと王様がぶつかった場合
+		//if (player.checkCollision(king)) {
+		if(muki==up&&player.getPosition().getX()==18&&player.getPosition().getY()==22&&virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// プレイヤーと王様が隣り合い、かつプレイヤーが王様の方を向き、かつスペースキーを押すと...
 			scenario.fire("王様とぶつかる");	// 「王様とぶつかる」というイベントを発生する（シナリオが進む）
 		}
 	}
