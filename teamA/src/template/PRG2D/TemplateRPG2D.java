@@ -34,6 +34,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		map = new MapStage();
 		universe.place(map);
 		camera.addTarget(map);
+		//camera.addTarget(map);
 
 		// プレイヤーの配置
 		player = new Player("data\\RPG\\player.png");
@@ -111,23 +112,23 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			// キー操作の処理
 			// 左
 			if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
-				player.setVelocity(-4.0, 0.0);
+				player.setVelocity(-6.0, 0.0);
 				disableControl = true;
 			}
 			// 右
 			else if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
-				player.setVelocity(4.0, 0.0);
+				player.setVelocity(6.0, 0.0);
 				disableControl = true;
 	
 			}
 			// 上
 			else if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
-				player.setVelocity(0.0, 4.0);
+				player.setVelocity(0.0, 6.0);
 				disableControl = true;
 			}
 			// 下
 			else if (virtualController.isKeyDown(0, RWTVirtualController.DOWN)) {
-				player.setVelocity(0.0, -4.0);
+				player.setVelocity(0.0, -6.0);
 				disableControl = true;
 			}
 		}
