@@ -142,6 +142,12 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 				disableControl = true;
 			}
 		}
+		
+		//キャラを初期位置に置きなおす処理(ハマったときのため)
+		if(virtualController.isKeyDown(0, RWTVirtualController.LEFT)){
+			player.setPosition(14.0, 14.0);
+		}
+		
 		player.motion(interval, map);
 		
 		// 衝突判定
@@ -152,7 +158,15 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			// プレイヤーと王様がぶつかった場合
 			scenario.fire("かばんを調べる");	// 「かばんを調べる」というイベントを発生する（シナリオが進む）
 		}
+		if(muki==up && player.getPosition().getX()==22 && player.getPosition().getY()==16 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			System.out.println(player.getPosition().getX());
+			System.out.println(player.getPosition().getY());
+			// スマホを調べた場合
+			scenario.fire("スマホを調べる");	// 「スマホを調べる」というイベントを発生する（シナリオが進む）
+		}
 	}
+	
+	
 
 	@Override
 	public void action(String action, Event event, ScenarioState nextState) {
