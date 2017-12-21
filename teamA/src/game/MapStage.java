@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import framework.game2D.Map2D;
 
 /**
- * –À˜HƒQ[ƒ€‚ÌƒXƒe[ƒW‚ÌƒNƒ‰ƒX
+ * è¿·è·¯ã‚²ãƒ¼ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚¯ãƒ©ã‚¹
  * @author T.Kuno
  *
  */
 public class MapStage extends Map2D {
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	public MapStage() {
 		super(new String[]{
 				"data\\MapChip\\yuka1.png",//0
@@ -87,11 +87,12 @@ public class MapStage extends Map2D {
 		,16);
 	}
 	
-	// ’ŠÛƒƒ\ƒbƒh‚ÌÀ‘•
-	//@0`6:ˆÚ“®‰Â”\@7ˆÈã:áŠQ•¨@
+	// æŠ½è±¡ãƒ¡ã‚½ãƒƒãƒ‰ã®å®Ÿè£…
+	//ã€€0ï½6:ç§»å‹•å¯èƒ½ã€€7ä»¥ä¸Š:éšœå®³ç‰©ã€€
 	@Override
 	public int[][] createMap() {
 		int[][] map = {
+
 				{ 17, 21, 21, 21, 21, 16, 16, 32, 16, 16, 16, 16, 16, 36, 16, 17},
 				{ 17, 22, 29, 30, 31, 62, 17, 33, 34, 35, 63, 17, 17, 37, 17, 17},
 				{ 17, 23, 6, 7, 8, 0, 0, 9, 10, 11, 0, 0, 0, 0, 0, 17},
@@ -108,12 +109,13 @@ public class MapStage extends Map2D {
 				{ 17, 58, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 17},
 				{ 17, 40, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17},
 				{ 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17}				
+
 		};
 		return map;
 	}
 
 	public boolean checkGridPoint(Player mazeSpritePlayer) {
-		// ŠÛ‚ßŒë·ˆ——p•Ï”‚Ì¶¬
+		// ä¸¸ã‚èª¤å·®å‡¦ç†ç”¨å¤‰æ•°ã®ç”Ÿæˆ
 		double mazeSpritePositionX = new BigDecimal(mazeSpritePlayer
 				.getPosition().getX()).setScale(1, BigDecimal.ROUND_DOWN)
 				.doubleValue();
@@ -121,7 +123,7 @@ public class MapStage extends Map2D {
 				.getPosition().getY()).setScale(1, BigDecimal.ROUND_DOWN)
 				.doubleValue();
 		
-		// ƒXƒe[ƒW‚Ì\¬ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ÆƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ª“¯‚¶‚©‚Ç‚¤‚©‚Á”»’è‚·‚é
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ãŒåŒã˜ã‹ã©ã†ã‹ã£åˆ¤å®šã™ã‚‹
 		for (int i = 0; i < this.getStageObjectList().size(); i++) {
 			if (
 					mazeSpritePositionX == this.getStageObjectList().get(i).getPosition().getX()
