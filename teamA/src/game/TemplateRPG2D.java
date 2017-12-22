@@ -26,7 +26,8 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	private Sprite king;
 	private Sprite enemy;
 	int up = 0, down = 1, left = 2, right = 3;
-	int muki = 0; 
+	int muki = 0;
+	int kagi_tsukue = 0;
 		
 	// 速度によって物体が動いている時にボタンを押せるかどうかを判定するフラグ
 	private boolean disableControl = false;
@@ -81,6 +82,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		container = new ScenarioGameContainer();
 		return container;
 	}
+	
 	
 	// 戦闘用画面の作成
 	public BaseScenarioGameContainer createSubRWTContainer() {
@@ -152,17 +154,59 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		
 		// 衝突判定
 //		if (player.checkCollision(king)) {
-		if(muki==up && player.getPosition().getX()==18 && player.getPosition().getY()==22 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
-			System.out.println(player.getPosition().getX());
-			System.out.println(player.getPosition().getY());
-			// プレイヤーと王様がぶつかった場合
+		if(muki==right && player.getPosition().getX()==8 && player.getPosition().getY()==2 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)||(muki==left && player.getPosition().getX()==12 && player.getPosition().getY()==2 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C))||muki==down && player.getPosition().getX()==10 && player.getPosition().getY()==4 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// かばんを調べた場合
 			scenario.fire("かばんを調べる");	// 「かばんを調べる」というイベントを発生する（シナリオが進む）
 		}
-		if(muki==up && player.getPosition().getX()==22 && player.getPosition().getY()==16 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
-			System.out.println(player.getPosition().getX());
-			System.out.println(player.getPosition().getY());
+		if(muki==up && player.getPosition().getX()==22 && player.getPosition().getY()==18 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// スマホを調べた場合
 			scenario.fire("スマホを調べる");	// 「スマホを調べる」というイベントを発生する（シナリオが進む）
+		}
+		if(muki==left && player.getPosition().getX()==4 && player.getPosition().getY()==8 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 筆箱を調べた場合
+			scenario.fire("筆箱を調べる");	//筆箱を調べる
+		}
+		if(muki==up && player.getPosition().getX()==26 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 扉を調べた場合
+			scenario.fire("扉を調べる");	//扉を調べる
+		}
+		if(muki==up && player.getPosition().getX()==10 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// カレンダーを調べた場合
+			scenario.fire("カレンダーを調べる");	//カレンダーを調べる
+		}
+		if(muki==up && player.getPosition().getX()>=14 && player.getPosition().getX()<=18 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// タンスを調べた場合
+			scenario.fire("タンスを調べる");	//タンスを調べる
+		}
+		if(muki==up && player.getPosition().getX()>=4 && player.getPosition().getX()<=8 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 本棚を調べた場合
+			scenario.fire("本棚を調べる");	//本棚を調べる
+		}
+		if(muki==up && player.getPosition().getX()==20 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 写真を調べた場合
+			scenario.fire("写真を調べる");	//写真を調べる
+		}
+		if(muki==up && player.getPosition().getX()==6 && player.getPosition().getY()==8 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 資料を調べた場合
+			scenario.fire("資料を調べる");	//資料を調べる
+		}
+		if(muki==up && player.getPosition().getX()==8 && player.getPosition().getY()==8 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 机の右の引き出しを調べた場合
+			scenario.fire("机の右の引き出しを調べる");	//机の引き出しを調べる
+			kagi_tsukue = 1;
+		}
+		if(muki==up && player.getPosition().getX()==4 && player.getPosition().getY()==8 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// 机の左の引き出しを調べた場合
+			if(kagi_tsukue == 0){
+				scenario.fire("机の左の引き出しを調べる1");	//机の左の引き出しを調べる（鍵は持っていない）
+			} else {
+				scenario.fire("机の左の引き出しを調べる2");	//机の左の引き出しを調べる（鍵は持っている）
+			}
+		}
+		//座標取得用(Wキーでプレイヤーの現在の位置を取得)
+		if(virtualController.isKeyDown(0, RWTVirtualController.UP)){
+			System.out.println(player.getPosition().getX());
+			System.out.println(player.getPosition().getY());
 		}
 	}
 	

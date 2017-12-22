@@ -15,27 +15,206 @@
 		<State name="会話終了">
 		</State>
 	</FSM>
-	
+
 	<FSM name="スマホを調べる" initial="会話前">
 		<State name="会話前">
-			<Event name="スマホを調べる" action="openDialog" trans="最初の会話">
+			<Event name="スマホを調べる" action="openDialog" trans="最初の会話1">
 			</Event>
 		</State>
-		<State name="最初の会話" message="スマホを調べた。">
-			<Event name="A" trans="次の会話">
+		<State name="最初の会話1" message="スマホを調べた。">
+			<Event name="A" trans="次の会話1">
 			</Event>
 		</State>
-		<State name="次の会話" message="暗証番号が必要だ。">
-			<Event name="A" action="closeDialog" trans="会話終了">
+		<State name="次の会話1" message="暗証番号が必要だ。">
+			<Event name="A" action="closeDialog" trans="会話終了1">
 			</Event>
 		</State>
-		<State name="会話終了">
+		<State name="会話終了1">
 		</State>
 	</FSM>
-	
+
+	<FSM name="筆箱を調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="筆箱を調べる" action="openDialog" trans="最初の会話2">
+			</Event>
+		</State>
+		<State name="最初の会話2" message="筆箱を調べた。">
+			<Event name="A" trans="次の会話2">
+			</Event>
+		</State>
+		<State name="次の会話2" message="ｼｬｰﾍﾟﾝを見つけた。">
+			<Event name="A" trans="次の会話2-3">
+			</Event>
+		</State>
+		<State name="次の会話2-3" message="芯は無いようだ。">
+			<Event name="A" action="closeDialog" trans="会話終了2">
+			</Event>
+		</State>
+		<State name="会話終了2">
+		</State>
+	</FSM>
+
+	<FSM name="扉を調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="扉を調べる" action="openDialog" trans="最初の会話3">
+			</Event>
+		</State>
+		<State name="最初の会話3" message="扉を調べた。">
+			<Event name="A" trans="次の会話3">
+			</Event>
+		</State>
+		<State name="次の会話3" message="外に出ますか?">
+			<Event name="A" action="closeDialog" trans="会話終了3">
+			</Event>
+		</State>
+		<State name="会話終了3">
+		</State>
+	</FSM>
+
+	<FSM name="カレンダーを調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="カレンダーを調べる" action="openDialog" trans="最初の会話4">
+			</Event>
+		</State>
+		<State name="最初の会話4" message="カレンダーを調べた。">
+			<Event name="A" trans="次の会話4">
+			</Event>
+		</State>
+		<State name="次の会話4" message="赤丸がついている。">
+			<Event name="A" action="closeDialog" trans="会話終了4">
+			</Event>
+		</State>
+		<State name="会話終了4">
+		</State>
+	</FSM>
+
+	<FSM name="タンスを調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="タンスを調べる" action="openDialog" trans="最初の会話5">
+			</Event>
+		</State>
+		<State name="最初の会話5" message="タンスを調べた。">
+			<Event name="A" trans="次の会話5">
+			</Event>
+		</State>
+		<State name="次の会話5" message="虫眼鏡を見つけた。">
+			<Event name="A" action="closeDialog" trans="会話終了5">
+			</Event>
+		</State>
+		<State name="会話終了5">
+		</State>
+	</FSM>
+
+	<FSM name="本棚を調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="本棚を調べる" action="openDialog" trans="最初の会話6">
+			</Event>
+		</State>
+		<State name="最初の会話6" message="本棚を調べた。">
+			<Event name="A" trans="次の会話6">
+			</Event>
+		</State>
+		<State name="次の会話6" message="参考書を見つけた。">
+			<Event name="A" action="closeDialog" trans="会話終了6">
+			</Event>
+		</State>
+		<State name="会話終了6">
+		</State>
+	</FSM>
+
+	<FSM name="写真を調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="写真を調べる" action="openDialog" trans="最初の会話7">
+			</Event>
+		</State>
+		<State name="最初の会話7" message="写真を調べた。">
+			<Event name="A" trans="次の会話7">
+			</Event>
+		</State>
+		<State name="次の会話7" message="図形が描かれている。">
+			<Event name="A" action="closeDialog" trans="会話終了7">
+			</Event>
+		</State>
+		<State name="会話終了7">
+		</State>
+	</FSM>
+
+	<FSM name="資料を調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="資料を調べる" action="openDialog" trans="最初の会話8">
+			</Event>
+		</State>
+		<State name="最初の会話8" message="資料を調べた。">
+			<Event name="A" trans="次の会話8">
+			</Event>
+		</State>
+		<State name="次の会話8" message="虫食い文のようだ。">
+			<Event name="A" action="closeDialog" trans="会話終了8">
+			</Event>
+		</State>
+		<State name="会話終了8">
+		</State>
+	</FSM>
+
+	<FSM name="机の右の引き出しを調べる" initial="会話前">
+		<State name="会話前">
+			<Event name="机の右の引き出しを調べる" action="openDialog" trans="最初の会話9">
+			</Event>
+		</State>
+		<State name="最初の会話9" message="机の右の引き出しを調べた。">
+			<Event name="A" trans="次の会話9">
+			</Event>
+		</State>
+		<State name="次の会話9" message="鍵を手に入れた。">
+			<Event name="A" action="closeDialog" trans="会話終了9">
+			</Event>
+		</State>
+		<State name="会話終了9">
+		</State>
+	</FSM>
+
+	<FSM name="机の左の引き出しを調べる1" initial="会話前">
+		<State name="会話前">
+			<Event name="机の左の引き出しを調べる1" action="openDialog" trans="最初の会話10">
+			</Event>
+		</State>
+		<State name="最初の会話10" message="机の左の引き出しを調べた。">
+			<Event name="A" trans="次の会話10">
+			</Event>
+		</State>
+		<State name="次の会話10" message="鍵がかかっている。">
+			<Event name="A" action="closeDialog" trans="会話終了10">
+			</Event>
+		</State>
+		<State name="会話終了10">
+		</State>
+	</FSM>
+
+	<FSM name="机の左の引き出しを調べる2" initial="会話前">
+		<State name="会話前">
+			<Event name="机の左の引き出しを調べる2" action="openDialog" trans="最初の会話11">
+			</Event>
+		</State>
+		<State name="最初の会話11" message="机の左の引き出しを調べた。">
+			<Event name="A" trans="次の会話11-1">
+			</Event>
+		</State>
+		<State name="次の会話11-1" message="鍵を使った。">
+			<Event name="A" trans="次の会話11-2">
+			</Event>
+		</State>
+		<State name="次の会話11-2" message="シャー芯を見つけた。">
+			<Event name="A" action="closeDialog" trans="会話終了11">
+			</Event>
+		</State>
+		<State name="会話終了11">
+		</State>
+	</FSM>
+
 	<FSM name="戦闘" initial="非戦闘状態">
 		<State name="非戦闘状態">
-			<Event name="戦闘開始" action="startFight" trans="戦闘状態" guard="次の会話" sync="A">
+			<Event name="戦闘開始" action="startFight" trans="戦闘状態" guard="次の会話"
+				sync="A">
 			</Event>
 		</State>
 		<State name="戦闘状態">
