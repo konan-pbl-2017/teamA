@@ -35,7 +35,7 @@
     
 	<FSM name="かばんを調べる" initial="会話前">
 		<State name="会話前">
-			<Event name="かばんを調べる" action="openDialog" trans="最初の会話">
+			<Event name="かばんを調べる" action="openDialog" trans="最初の会話1">
 			</Event>
 		</State>
 		<State name="最初の会話1" message="かばんを調べた。">
