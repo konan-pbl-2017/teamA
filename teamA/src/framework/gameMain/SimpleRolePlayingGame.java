@@ -14,6 +14,7 @@ import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
+import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
 import framework.game2D.Sprite;
@@ -163,4 +164,22 @@ public abstract class SimpleRolePlayingGame extends SimpleMapGame implements IWo
 		container.repaint();
 		container.setScenario(scenario);
 	}
+	
+	protected void changeContainer(RWTContainer container) {
+		frame.setContentPane(container);
+		GraphicsConfiguration gc = null;
+		if (frame.isShadowCasting()) {
+
+			// 影を付ける場合
+			// ステンシルバッファを使用する GraphicsConfiguration の生成
+			GraphicsEnvironment ge = GraphicsEnvironment
+					.getLocalGraphicsEnvironment();
+			GraphicsDevice gd = ge.getDefaultScreenDevice();
+			GraphicsConfigTemplate3D gct3D = new GraphicsConfigTemplate3D();
+			gct3D.setStencilSize(8);
+			gc = gd.getBestConfiguration(gct3D);
+		}
+		container.build(gc);		
+	}
+	
 }

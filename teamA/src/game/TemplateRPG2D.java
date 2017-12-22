@@ -3,12 +3,15 @@ package game;
 import java.awt.Color;
 import java.math.BigDecimal;
 
+import game.EndingContainer;
+import game.StartContainer;
 
 import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
 import framework.game2D.Sprite;
 import framework.gameMain.BaseScenarioGameContainer;
+import framework.gameMain.IGameState;
 import framework.gameMain.SimpleRolePlayingGame;
 import framework.model3D.ModelFactory;
 import framework.model3D.Object3D;
@@ -26,14 +29,53 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	private Sprite king;
 	private Sprite enemy;
 	int up = 0, down = 1, left = 2, right = 3;
+	
+	private IGameState startGameState = null;
+	private IGameState endingGameState = null;
+
 	int muki = 0;
 	int kagi_tsukue = 0;
 	int password = 0;
-		
+
 	// 速度によって物体が動いている時にボタンを押せるかどうかを判定するフラグ
 	private boolean disableControl = false;
 
-	@Override
+	
+	public TemplateRPG2D() {
+		super();
+		startGameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateRPG2D.this.frame = frame;
+				RWTContainer container = new StartContainer(TemplateRPG2D.this);
+				changeContainer(container);
+			}
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+			}
+		};
+		endingGameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateRPG2D.this.frame = frame;
+				RWTContainer container = new EndingContainer(TemplateRPG2D.this);
+				changeContainer(container);
+			}
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+			}
+		};
+		setCurrentGameState(startGameState);
+	}
+	
 	public void init(Universe universe) {
 		map = new MapStage();
 		universe.place(map);
@@ -45,26 +87,26 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		player.setPosition(14.0, 14.0);
 		player.setCollisionRadius(0.5);
 		universe.place(player);
-		
+
 		// 王様の配置
 		king = new Sprite("data\\RPG\\king.png");
 		king.setPosition(18.0, 24.0);
 		king.setCollisionRadius(0.5);
 		universe.place(king);
-		
+
 		// プレイヤーを画面の中央に
 		setCenter(player);
-		
+
 		// シナリオの設定
 		setScenario("data\\game\\Scenario\\scenario.xml");
 	}
-	
+
 	@Override
 	public void subInit(Universe universe) {
 		enemy = new Sprite("data\\item\\nitta.png", 10.0f);
 		enemy.setPosition(15.0, 15.0);
 		universe.place(enemy);
-		
+
 		// 敵を画面の中央に
 		setSubCenter(enemy);
 	}
@@ -78,19 +120,37 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		return frame;
 	}
 	
+	public void restart() {
+		stop();
+		setCurrentGameState(startGameState);
+		start();
+	}
+
+	public void play() {
+		stop();
+		setCurrentGameState(this);
+		start();
+	}
+
+	public void ending() {
+		stop();
+		setCurrentGameState(endingGameState);
+		start();
+	}
+
+
 	@Override
 	protected RWTContainer createRWTContainer() {
 		container = new ScenarioGameContainer();
 		return container;
 	}
-	
-	
+
 	// 戦闘用画面の作成
 	public BaseScenarioGameContainer createSubRWTContainer() {
 		subContainer = new FightContainer();
 		return subContainer;
 	}
-	
+
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
 		// 迷路ゲームステージを構成するオブジェクトの位置とプレイヤーの位置をもとに速度を0にするかどうかを調べる。
@@ -99,12 +159,11 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		// 誤差による位置修正を行うため、プレイヤーのx成分とy成分が0.0の時、位置の値を切り上げる
 		if (player.getVelocity().getX() == 0.0
 				&& player.getVelocity().getY() == 0.0) {
-			player.setPosition(new BigDecimal(player
-					.getPosition().getX())
-			.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue(),
-			new BigDecimal(player.getPosition().getY())
-			.setScale(0, BigDecimal.ROUND_HALF_UP)
-			.doubleValue());
+			player.setPosition(
+					new BigDecimal(player.getPosition().getX()).setScale(0,
+							BigDecimal.ROUND_HALF_UP).doubleValue(),
+					new BigDecimal(player.getPosition().getY()).setScale(0,
+							BigDecimal.ROUND_HALF_UP).doubleValue());
 		}
 
 		// 速度が0.0にするフラグが立っていれば、速度を0にする
@@ -113,7 +172,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			disableControl = false;
 		}
 		// キャラが移動していなければ、キー操作の処理を行える。
-		if(!disableControl){
+		if (!disableControl) {
 			// キー操作の処理
 			// 左
 			if (virtualController.isKeyDown(1, RWTVirtualController.LEFT)) {
@@ -128,7 +187,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 				player.setImage("data\\images\\CharaRight.gif");
 				muki = right;
 				disableControl = true;
-	
+
 			}
 			// 上
 			else if (virtualController.isKeyDown(1, RWTVirtualController.UP)) {
@@ -145,15 +204,16 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 				disableControl = true;
 			}
 		}
-		
-		//キャラを初期位置に置きなおす処理(ハマったときのため)
-		if(virtualController.isKeyDown(0, RWTVirtualController.LEFT)){
+
+		// キャラを初期位置に置きなおす処理(ハマったときのため)
+		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
 			player.setPosition(14.0, 14.0);
 		}
-		
+
 		player.motion(interval, map);
-		
+
 		// 衝突判定
+		
 //		if (player.checkCollision(king)) {
 		if(muki==right && player.getPosition().getX()==8 && player.getPosition().getY()==2 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)||(muki==left && player.getPosition().getX()==12 && player.getPosition().getY()==2 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C))||muki==down && player.getPosition().getX()==10 && player.getPosition().getY()==4 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// かばんを調べた場合
@@ -161,7 +221,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		}
 		if(muki==up && player.getPosition().getX()==22 && player.getPosition().getY()==18 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// スマホを調べた場合
-			scenario.fire("スマホを調べる");	// 「スマホを調べる」というイベントを発生する（シナリオが進む）
+			scenario.fire("スマホを調べる"); // 「スマホを調べる」というイベントを発生する（シナリオが進む）
 		}
 		if(muki==left && player.getPosition().getX()==4 && player.getPosition().getY()==8 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// 筆箱を調べた場合
@@ -219,8 +279,6 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			System.out.println(player.getPosition().getY());
 		}
 	}
-	
-	
 
 	@Override
 	public void action(String action, Event event, ScenarioState nextState) {
