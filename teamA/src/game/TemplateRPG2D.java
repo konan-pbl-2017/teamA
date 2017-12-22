@@ -28,6 +28,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	int up = 0, down = 1, left = 2, right = 3;
 	int muki = 0;
 	int kagi_tsukue = 0;
+	int password = 0;
 		
 	// 速度によって物体が動いている時にボタンを押せるかどうかを判定するフラグ
 	private boolean disableControl = false;
@@ -60,7 +61,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	
 	@Override
 	public void subInit(Universe universe) {
-		enemy = new Sprite("data\\RPG\\monster.png", 10.0f);
+		enemy = new Sprite("data\\item\\nitta.png", 10.0f);
 		enemy.setPosition(15.0, 15.0);
 		universe.place(enemy);
 		
@@ -173,6 +174,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		if(muki==up && player.getPosition().getX()==10 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// カレンダーを調べた場合
 			scenario.fire("カレンダーを調べる");	//カレンダーを調べる
+			password = 1;
 		}
 		if(muki==up && player.getPosition().getX()>=14 && player.getPosition().getX()<=18 && player.getPosition().getY()==26 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
 			// タンスを調べた場合
@@ -201,6 +203,14 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 				scenario.fire("机の左の引き出しを調べる1");	//机の左の引き出しを調べる（鍵は持っていない）
 			} else {
 				scenario.fire("机の左の引き出しを調べる2");	//机の左の引き出しを調べる（鍵は持っている）
+			}
+		}
+		if(muki==up && player.getPosition().getX()==22 && player.getPosition().getY()==18 && virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)){
+			// スマホ調べた場合
+			if(password == 0){
+				scenario.fire("スマホを調べる1");	//スマホを調べる（鍵は持っていない）
+			} else {
+				scenario.fire("スマホを調べる2");	//スマホを調べる（鍵は持っている）
 			}
 		}
 		//座標取得用(Wキーでプレイヤーの現在の位置を取得)
