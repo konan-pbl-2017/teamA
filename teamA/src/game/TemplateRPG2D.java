@@ -9,6 +9,8 @@ import game.StartContainer;
 import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
+import framework.audio.BGM3D;
+import framework.audio.Sound3D;
 import framework.game2D.Sprite;
 import framework.gameMain.BaseScenarioGameContainer;
 import framework.gameMain.IGameState;
@@ -35,6 +37,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 
 	int muki = 0;
 	int kagi_tsukue = 0;
+
 	int password = 0;
 
 	// 速度によって物体が動いている時にボタンを押せるかどうかを判定するフラグ
@@ -81,6 +84,9 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		universe.place(map);
 		setViewRange(40, 40);
 		camera.addTarget(map);
+
+		Sound3D BGM = BGM3D.registerBGM("data\\sound1\\honpen1.wav");
+		BGM3D.playBGM(BGM);//BGMを設定して流す
 
 		// プレイヤーの配置
 		player = new Player("data\\images\\CharaFront.gif");
@@ -138,13 +144,12 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 		start();
 	}
 
-
 	@Override
 	protected RWTContainer createRWTContainer() {
 		container = new ScenarioGameContainer();
 		return container;
 	}
-
+	
 	// 戦闘用画面の作成
 	public BaseScenarioGameContainer createSubRWTContainer() {
 		subContainer = new FightContainer();
@@ -152,7 +157,7 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 	}
 
 	@Override
-	public void progress(RWTVirtualController virtualController, long interval) {
+	public void progress(RWTVirtualController virtualController, long interval) {		
 		// 迷路ゲームステージを構成するオブジェクトの位置とプレイヤーの位置をもとに速度を0にするかどうかを調べる。
 		boolean resetVelocity = map.checkGridPoint(player);
 
@@ -205,6 +210,9 @@ public class TemplateRPG2D extends SimpleRolePlayingGame {
 			}
 		}
 
+		//キャラを初期位置に置きなおす処理(ハマったときのため)
+		if(virtualController.isKeyDown(0, RWTVirtualController.LEFT)){
+		}
 		// キャラを初期位置に置きなおす処理(ハマったときのため)
 		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
 			player.setPosition(14.0, 14.0);
